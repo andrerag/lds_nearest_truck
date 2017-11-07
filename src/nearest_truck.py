@@ -2,7 +2,7 @@ import logging
 
 from optparse import OptionParser
 from csv_parser import *
-		
+
 if __name__ == "__main__":
 	usage = "usage: %prog --trucks=<CSVFILE> --cargo=<CSVFILE>"
 	cmd_args_parser = OptionParser(usage=usage)
@@ -21,3 +21,7 @@ if __name__ == "__main__":
 	truck_list = load_truck_list(options.trucks_csvfile)
 	logging.info('Parsing cargos .csv file')
 	cargo_list = load_cargo_list(options.cargos_csvfile)
+
+	a = truck_list[0].location.distance_to(cargo_list[0].origin)
+	logging.info('Distance from [%s, %s] to [%s, %s]: %d', truck_list[0].city, truck_list[0].state, \
+		cargo_list[0].origin_city, cargo_list[0].origin_state, a)

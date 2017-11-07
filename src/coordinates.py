@@ -6,19 +6,17 @@ class DistanceMeasurement:
 
 class Coordinates:
 	def __init__(self, lat, lng):
-		self.lat = lat
-		self.lng = lng
+		self.lat = float(lat)
+		self.lng = float(lng)
 	
-	def distance_to(coordinates, type=DistanceMeasurement.HAVERSINE):
-		if (type == DistanceMeasurement.HAVERSINE):
-			return __harvesine_distance(coordinates)
+	def distance_to(self, coordinates, type=DistanceMeasurement.HAVERSINE):
+		return self.__haversine_distance(coordinates)
 
-		return -1
 
-	def is_contained_in_rectangle(upper_left, lower_right):
+	def is_contained_in_rectangle(self, upper_left, lower_right):
 		return true
 
-	def __haversine_distance(coordinates):
+	def __haversine_distance(self, coordinates):
 		earth_radius = 6371e3
 		phi1 = math.radians(coordinates.lat)
 		phi2 = math.radians(self.lat)		
