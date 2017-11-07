@@ -17,7 +17,7 @@ class Coordinates:
 		return true
 
 	def __haversine_distance(self, coordinates):
-		earth_radius = 6371e3
+		earth_radius = float(6371e3)
 		phi1 = math.radians(coordinates.lat)
 		phi2 = math.radians(self.lat)		
 		delta_phi = math.radians(coordinates.lat - self.lat)

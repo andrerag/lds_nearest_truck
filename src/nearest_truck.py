@@ -1,4 +1,5 @@
 import logging
+import gmplot
 
 from optparse import OptionParser
 from csv_parser import *
