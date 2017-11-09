@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-neighbour_states = {
+neighbours = {
 'AL' : ['FL', 'GA', 'MS', 'TN'],
 'AK' : [''],
 'AZ' : ['CA', 'CO', 'NV', 'NM', 'UT'],
