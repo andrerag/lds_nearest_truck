@@ -1,14 +1,16 @@
+LoadSmart Take Home Test
+<br><br>
 Problem:<br>
 Given a list of trucks and their current locations and a list of cargos and their pickup and delivery
 destinations, find the optimal mapping of trucks to cargos to minimize the overall distances all trucks
-must travel.
-<br><br>
+must travel.<br>
+<br>
 Assume:
 • Each truck can only carry up to one cargo and each truck can only make up to one trip.<br>
 • Variable of calculating the cost of return trip for the truck back to its original start point is not<br>
 needed.<br>
 • Distance should be calculated using geographical distance - not using roads.<br>
-<br><br>
+<br>
 When finished:<br>
 ● Please email the ZIP solution to task@loadsmart.com Please do not submit the file via
 downloadable link.<br>
@@ -16,7 +18,7 @@ downloadable link.<br>
 ● Please keep in mind that we may ask you to improve and/or change your solution during the
 interview.<br>
 ● Please include a readme file which explains your solution in about 5-8 lines.<br>
-<br><br>
+<br>
 FAQs:<br>
 • Can the implementation contain external dependencies? i.e: services, road data, graph library – No<br>
 • You cannot work on this with anyone else<br>
