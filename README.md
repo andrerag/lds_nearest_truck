@@ -5,7 +5,7 @@ Given a list of trucks and their current locations and a list of cargos and thei
 destinations, find the optimal mapping of trucks to cargos to minimize the overall distances all trucks
 must travel.<br>
 <br>
-Assume:
+Assume:<br>
 • Each truck can only carry up to one cargo and each truck can only make up to one trip.<br>
 • Variable of calculating the cost of return trip for the truck back to its original start point is not<br>
 needed.<br>
