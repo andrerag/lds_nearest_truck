@@ -12,9 +12,6 @@ class Coordinates:
 	def distance_to(self, coordinates, type=DistanceMeasurement.HAVERSINE):
 		return self.__haversine_distance(coordinates)
 
-	def is_contained_in_rectangle(self, upper_left, lower_right):
-		return true
-
 	def __haversine_distance(self, coordinates):
 		earth_radius = float(6371e3)
 		phi1 = math.radians(coordinates.lat)

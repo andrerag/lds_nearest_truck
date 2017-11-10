@@ -1,18 +1,21 @@
 import csv
+
+from collections import defaultdict
 from trucks import Truck
 from cargo import Cargo
 
-def load_truck_list(csvfile):
-	truck_list = []
+def load_trucks_bystate(csvfile):
+	truck_list_bystate = defaultdict(list)
 	with open(csvfile) as trucks_csvfile:
 		reader = csv.DictReader(trucks_csvfile)
 		for curr_truck in reader:
-			truck_list.append(Truck(curr_truck['truck'],\
-									curr_truck['city'],\
-									curr_truck['state'],\
-									curr_truck['lat'],\
-									curr_truck['lng']))
-	return truck_list
+			new_truck = Truck(curr_truck['truck'],\
+				  			  curr_truck['city'],\
+							  curr_truck['state'],\
+							  curr_truck['lat'],\
+							  curr_truck['lng'])
+			truck_list_bystate[curr_truck['state']].append(new_truck)
+	return truck_list_bystate
 
 def load_cargo_list(csvfile):
 	cargo_list = []

@@ -11,4 +11,4 @@ class Cargo:
         self.destination_city         = destination_city
         self.destination_state        = destination_state
         self.destination              = Coordinates(destination_lat, destination_lng)
-        self.origin_neighbour_states  = neighbour_states.neighbours[origin_state]
+        self.origin_neighbour_states  = neighbour_states.NEIGHBOURS[origin_state]

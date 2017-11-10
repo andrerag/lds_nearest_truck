@@ -1,5 +1,6 @@
 import logging
 import gmplot
+import truck_locator
 
 from optparse import OptionParser
 from csv_parser import *
@@ -18,9 +19,11 @@ if __name__ == "__main__":
 	
 	logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 	
-	logging.info('Parsing trucks .csv file')
-	truck_list = load_truck_list(options.trucks_csvfile)
-	logging.info('Parsing cargos .csv file')
+	truck_list = load_trucks_bystate(options.trucks_csvfile)
 	cargo_list = load_cargo_list(options.cargos_csvfile)
 
-	print cargo_list[0].origin_neighbour_states
+	truck, distance = truck_locator.find_nearest_truck(cargo_list[0], truck_list)
+
+	print distance
+	print truck.city, truck.state
+
