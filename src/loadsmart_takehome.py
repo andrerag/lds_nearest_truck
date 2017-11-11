@@ -24,6 +24,5 @@ if __name__ == "__main__":
 
 	truck, distance = truck_locator.find_nearest_truck(cargo_list[0], truck_list)
 
-	print distance
 	print truck.city, truck.state
 
