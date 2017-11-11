@@ -29,16 +29,19 @@ if __name__ == "__main__":
 	print truck.city, truck.state
 
 
-	gmap = gmplot.GoogleMapPlotter.from_geocode(truck.city)
+	gmap = gmplot.GoogleMapPlotter.from_geocode(cargo_list[CARGO].origin_city)
 	
+	path = [(cargo_list[CARGO].origin.lat, truck.location.lat), (cargo_list[CARGO].origin.lng, truck.location.lng)]
+	gmap.plot(path[0], path[1], "plum", edge_width=5)
+
 	gmap.marker(cargo_list[CARGO].origin.lat, cargo_list[CARGO].origin.lng, 'blue')
 	cargo_list.remove(cargo_list[CARGO])
 
-	for cargo in cargo_list:
-		gmap.marker(cargo.origin.lat, cargo.origin.lng, 'red')
-
 	gmap.marker(truck.location.lat, truck.location.lng, 'green')
 	truck_list[truck.state].remove(truck)
+
+	for cargo in cargo_list:
+		gmap.marker(cargo.origin.lat, cargo.origin.lng, 'red')
 
 	for state in truck_list:
 		for curr_truck in truck_list[state]:
