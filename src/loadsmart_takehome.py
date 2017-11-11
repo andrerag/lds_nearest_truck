@@ -1,10 +1,9 @@
 import logging
 import gmplot
 
-from .core.truck_locator import *
-
 from optparse import OptionParser
-from csv_parser import *
+from core import truck_locator
+from utils import csv_parser
 
 CARGO = 1
 
@@ -22,13 +21,12 @@ if __name__ == "__main__":
 	
 	logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 	
-	truck_list = load_trucks_bystate(options.trucks_csvfile)
-	cargo_list = load_cargo_list(options.cargos_csvfile)
+	truck_list = csv_parser.load_trucks_bystate(options.trucks_csvfile)
+	cargo_list = csv_parser.load_cargo_list(options.cargos_csvfile)
 
 	truck, distance = truck_locator.find_nearest_truck(cargo_list[CARGO], truck_list)
 
 	print truck.city, truck.state
-
 
 	gmap = gmplot.GoogleMapPlotter.from_geocode(cargo_list[CARGO].origin_city)
 	

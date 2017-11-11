@@ -1,8 +1,8 @@
 import csv
 
 from collections import defaultdict
-from trucks import Truck
-from cargo import Cargo
+from core.trucks import Truck
+from core.cargo  import Cargo
 
 def load_trucks_bystate(csvfile):
 	truck_list_bystate = defaultdict(list)

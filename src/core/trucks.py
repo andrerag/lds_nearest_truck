@@ -1,4 +1,4 @@
-from coordinates import Coordinates
+from core.coordinates import Coordinates
 
 class Truck:
 	def __init__(self, truck, city, state, lat, lng):

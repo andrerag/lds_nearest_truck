@@ -1,7 +1,6 @@
-from cargo import Cargo
-from trucks import Truck
-
-import neighbour_states
+from core.trucks import Truck
+from core.cargo  import Cargo
+from utils.neighbour_states import NEIGHBOURS
 
 def find_nearest_truck(cargo, trucks_bystate):
 	if len(trucks_bystate) == 0:
@@ -26,7 +25,7 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 	# If no trucks were found, recursevly look for trucks in the neighbour's neighbours
 
 	if (shortest_distance_neighbours == -1.) and (shortest_distance == -1.):
-		for curr_neighbour in neighbour_states.NEIGHBOURS[cargo.origin_state]:
+		for curr_neighbour in NEIGHBOURS[cargo.origin_state]:
 			nearest_truck_root_state, shortest_distance_root_state = nearest_truck(curr_neighbour, cargo, trucks_bystate, visited_states)
 
 	if shortest_distance_root_state == -1:
@@ -60,7 +59,7 @@ def find_trucks_in_neighbours(root_state ,cargo, trucks_bystate, visited_states)
 	nearest_truck_neighbours = ''
 	shortest_distance_neighbours = -1.
 
-	for curr_neighbour in neighbour_states.NEIGHBOURS[root_state]:
+	for curr_neighbour in NEIGHBOURS[root_state]:
 		if (len(trucks_bystate[curr_neighbour]) == 0) and (curr_neighbour not in visited_states):
 			visited_states.add(curr_neighbour)
 			continue

@@ -1,5 +1,5 @@
-from coordinates import Coordinates
-import neighbour_states
+from utils.neighbour_states import NEIGHBOURS
+from core.coordinates import Coordinates
 
 class Cargo:
     def __init__(self, product,origin_city,origin_state,origin_lat,origin_lng,
@@ -11,4 +11,4 @@ class Cargo:
         self.destination_city         = destination_city
         self.destination_state        = destination_state
         self.destination              = Coordinates(destination_lat, destination_lng)
-        self.origin_neighbour_states  = neighbour_states.NEIGHBOURS[origin_state]
+        self.origin_neighbour_states  = NEIGHBOURS[origin_state]
