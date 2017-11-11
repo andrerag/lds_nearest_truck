@@ -1,7 +1,7 @@
 import logging
 from optparse import OptionParser
 
-from core import truck_cargo_mapper as mapper
+from core import cargo_truck_mapper as mapper
 from utils import csv_parser
 from plotter import map_plotter
 
