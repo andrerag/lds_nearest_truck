@@ -5,6 +5,8 @@ import truck_locator
 from optparse import OptionParser
 from csv_parser import *
 
+CARGO = 1
+
 if __name__ == "__main__":
 	usage = "usage: %prog --trucks=<CSVFILE> --cargo=<CSVFILE>"
 	cmd_args_parser = OptionParser(usage=usage)
@@ -22,7 +24,24 @@ if __name__ == "__main__":
 	truck_list = load_trucks_bystate(options.trucks_csvfile)
 	cargo_list = load_cargo_list(options.cargos_csvfile)
 
-	truck, distance = truck_locator.find_nearest_truck(cargo_list[0], truck_list)
+	truck, distance = truck_locator.find_nearest_truck(cargo_list[CARGO], truck_list)
 
 	print truck.city, truck.state
 
+
+	gmap = gmplot.GoogleMapPlotter.from_geocode(truck.city)
+	
+	gmap.marker(cargo_list[CARGO].origin.lat, cargo_list[CARGO].origin.lng, 'blue')
+	cargo_list.remove(cargo_list[CARGO])
+
+	for cargo in cargo_list:
+		gmap.marker(cargo.origin.lat, cargo.origin.lng, 'red')
+
+	gmap.marker(truck.location.lat, truck.location.lng, 'green')
+	truck_list[truck.state].remove(truck)
+
+	for state in truck_list:
+		for curr_truck in truck_list[state]:
+			gmap.marker(curr_truck.location.lat, curr_truck.location.lng, 'yellow')
+	
+	gmap.draw("mymap.html")
