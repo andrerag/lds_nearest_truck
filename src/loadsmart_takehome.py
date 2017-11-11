@@ -1,11 +1,9 @@
 import logging
-
 from optparse import OptionParser
-from core import truck_locator
+
+from core import truck_cargo_mapper as mapper
 from utils import csv_parser
 from plotter import map_plotter
-
-CARGO = 1
 
 if __name__ == "__main__":
 	usage = "usage: %prog --trucks=<CSVFILE> --cargo=<CSVFILE>"
@@ -24,11 +22,9 @@ if __name__ == "__main__":
 	truck_list = csv_parser.load_trucks_bystate(options.trucks_csvfile)
 	cargo_list = csv_parser.load_cargo_list(options.cargos_csvfile)
 
-	truck_cargo_mapping = []
-
-	for curr_cargo in cargo_list:
-		truck, distance = truck_locator.find_nearest_truck(curr_cargo, truck_list)
-		truck_cargo_mapping.append((truck, curr_cargo))
+	truck_cargo_mapping, total_distance = mapper.map_cargos_to_trucks(cargo_list, truck_list)
 
 	map_plotter.plot_results(cargo_list, truck_list, truck_cargo_mapping)
+
+	print 'Total Distance: %.2f Km' % (total_distance/1000)
 

@@ -10,7 +10,8 @@ class Coordinates:
 		self.lng = float(lng)
 	
 	def distance_to(self, coordinates, type=DistanceMeasurement.HAVERSINE):
-		return self.__haversine_distance(coordinates)
+		if type == DistanceMeasurement.HAVERSINE:
+			return self.__haversine_distance(coordinates)
 
 	def __haversine_distance(self, coordinates):
 		earth_radius = float(6371e3)
