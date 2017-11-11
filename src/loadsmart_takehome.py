@@ -1,9 +1,9 @@
 import logging
-import gmplot
 
 from optparse import OptionParser
 from core import truck_locator
 from utils import csv_parser
+from plotter import map_plotter
 
 CARGO = 1
 
@@ -24,26 +24,11 @@ if __name__ == "__main__":
 	truck_list = csv_parser.load_trucks_bystate(options.trucks_csvfile)
 	cargo_list = csv_parser.load_cargo_list(options.cargos_csvfile)
 
-	truck, distance = truck_locator.find_nearest_truck(cargo_list[CARGO], truck_list)
+	truck_cargo_mapping = []
 
-	print truck.city, truck.state
+	for curr_cargo in cargo_list:
+		truck, distance = truck_locator.find_nearest_truck(curr_cargo, truck_list)
+		truck_cargo_mapping.append((truck, curr_cargo))
 
-	gmap = gmplot.GoogleMapPlotter.from_geocode(cargo_list[CARGO].origin_city)
-	
-	path = [(cargo_list[CARGO].origin.lat, truck.location.lat), (cargo_list[CARGO].origin.lng, truck.location.lng)]
-	gmap.plot(path[0], path[1], "plum", edge_width=5)
+	map_plotter.plot_results(cargo_list, truck_list, truck_cargo_mapping)
 
-	gmap.marker(cargo_list[CARGO].origin.lat, cargo_list[CARGO].origin.lng, 'blue')
-	cargo_list.remove(cargo_list[CARGO])
-
-	gmap.marker(truck.location.lat, truck.location.lng, 'green')
-	truck_list[truck.state].remove(truck)
-
-	for cargo in cargo_list:
-		gmap.marker(cargo.origin.lat, cargo.origin.lng, 'red')
-
-	for state in truck_list:
-		for curr_truck in truck_list[state]:
-			gmap.marker(curr_truck.location.lat, curr_truck.location.lng, 'yellow')
-	
-	gmap.draw("mymap.html")
