@@ -16,17 +16,20 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 	shortest_distance_neighbours = -1.
 
 	if (len(trucks_bystate[root_state]) > 0) and (root_state not in visited_states) :
-		nearest_truck_root_state, shortest_distance_root_state = nearest_truck_in_state(cargo, trucks_bystate[root_state])
+		nearest_truck_root_state, shortest_distance_root_state = nearest_truck_in_state(cargo, 
+			trucks_bystate[root_state])
 	
 	visited_states.add(root_state)
 
-	nearest_truck_neighbours, shortest_distance_neighbours = find_trucks_in_neighbours(root_state, cargo, trucks_bystate, visited_states)
+	nearest_truck_neighbours, shortest_distance_neighbours = find_trucks_in_neighbours(root_state, 
+		cargo, trucks_bystate, visited_states)
 
 	# If no trucks were found, recursevly look for trucks in the neighbour's neighbours
 
 	if (shortest_distance_neighbours == -1.) and (shortest_distance == -1.):
 		for curr_neighbour in NEIGHBOURS[cargo.origin_state]:
-			nearest_truck_root_state, shortest_distance_root_state = nearest_truck(curr_neighbour, cargo, trucks_bystate, visited_states)
+			nearest_truck_root_state, shortest_distance_root_state = nearest_truck(curr_neighbour, 
+				cargo, trucks_bystate, visited_states)
 
 	if shortest_distance_root_state == -1:
 		return nearest_truck_neighbours, shortest_distance_neighbours
