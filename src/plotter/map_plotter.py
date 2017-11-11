@@ -4,11 +4,15 @@ from core.trucks import Truck
 from core.cargo import Cargo
 
 def plot_results(cargos, truck_list_bystate, truck_cargo_mapping):
-	gmap = gmplot.GoogleMapPlotter.from_geocode('New York')
+	TRUCK = 0
+	CARGO = 1
+
+	gmap = gmplot.GoogleMapPlotter.from_geocode('United States', 5)
 
 	for truck_cargo in truck_cargo_mapping:
-		path = [(truck_cargo[1].origin.lat, truck_cargo[0].location.lat), (truck_cargo[1].origin.lng, truck_cargo[0].location.lng)]
-		gmap.plot(path[0], path[1], "black", edge_width=2)
+		path = [(truck_cargo[CARGO].origin.lat, truck_cargo[TRUCK].location.lat), \
+			(truck_cargo[CARGO].origin.lng, truck_cargo[TRUCK].location.lng)]
+		gmap.plot(path[TRUCK], path[CARGO], "black", edge_width=2)
 
 	for cargo in cargos:
 		gmap.marker(cargo.origin.lat, cargo.origin.lng, 'red')
