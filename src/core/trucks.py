@@ -6,3 +6,9 @@ class Truck:
 		self.city  = city
 		self.state = state
 		self.location = Coordinates(lat, lng)
+
+	def __hash__(self):
+		return hash(self.truck)
+
+	def __eq__(self, other):
+		return self.truck == other.truck

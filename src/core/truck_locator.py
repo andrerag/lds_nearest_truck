@@ -43,11 +43,11 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 
 
 def nearest_truck_in_state(cargo, state_truck_list):
-	nearest_truck = ''
-	shortest_distance = -1.0
+	nearest_truck = None
+	shortest_distance = -1.
 
 	for curr_truck in state_truck_list:
-		if shortest_distance == -1.0:
+		if shortest_distance == -1.:
 			shortest_distance = curr_truck.location.distance_to(cargo.origin)
 			nearest_truck = curr_truck
 		else:
@@ -59,7 +59,7 @@ def nearest_truck_in_state(cargo, state_truck_list):
 	return nearest_truck, shortest_distance
 
 def find_trucks_in_neighbours(root_state ,cargo, trucks_bystate, visited_states):
-	nearest_truck_neighbours = ''
+	nearest_truck_neighbours = None
 	shortest_distance_neighbours = -1.
 
 	for curr_neighbour in NEIGHBOURS[root_state]:

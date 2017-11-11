@@ -21,10 +21,6 @@ if __name__ == "__main__":
 	
 	truck_list = csv_parser.load_trucks_bystate(options.trucks_csvfile)
 	cargo_list = csv_parser.load_cargo_list(options.cargos_csvfile)
-
-	truck_cargo_mapping, total_distance = mapper.map_cargos_to_trucks(cargo_list, truck_list)
+	truck_cargo_mapping, distance = mapper.map_cargos_to_trucks(cargo_list, truck_list)
 
 	map_plotter.plot_results(cargo_list, truck_list, truck_cargo_mapping)
-
-	print 'Total Distance: %.2f Km' % (total_distance/1000)
-
