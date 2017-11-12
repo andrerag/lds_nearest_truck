@@ -16,7 +16,7 @@ if __name__ == "__main__":
 	(options, args) = cmd_args_parser.parse_args()
 	if not(options.trucks_csvfile) or not(options.cargos_csvfile):
 		cmd_args_parser.error("No .csv file contanning truck or cargo location was given.")
-	
+		
 	logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
 	
 	truck_list = csv_parser.load_trucks_bystate(options.trucks_csvfile)
