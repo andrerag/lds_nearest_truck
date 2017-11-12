@@ -5,6 +5,18 @@ from core.trucks import Truck
 from core.cargo  import Cargo
 
 def load_trucks_bystate(csvfile):
+	"""Reads a .csv file and returns a truck list sorted by state
+	
+	This function takes a csv file as input with the following columns: truck, city, state, lat, lng
+
+	Args:
+		csvfile: .csv file containing truck info
+
+	Returns:
+		A dict object with the folowing format:
+		{'State': (Truck1, Truck2, Truck3...)}
+
+	"""
 	truck_list_bystate = defaultdict(list)
 	with open(csvfile) as trucks_csvfile:
 		reader = csv.DictReader(trucks_csvfile)
@@ -18,6 +30,19 @@ def load_trucks_bystate(csvfile):
 	return truck_list_bystate
 
 def load_cargo_list(csvfile):
+	"""Reads a .csv file and returns a Cargo object list
+
+	This function takes a csv file as input with the following columns: product, origin_city, 
+	origin_state, origin_lat, origin_lng, destination_city, destination_state, destination_lat,
+	destination_lng
+
+	Args:
+		csvfile: .csv file containing cargo info
+
+	Returns:
+		A list of Cargo objects
+
+	"""
 	cargo_list = []
 	with open(csvfile) as cargo_csvfile:
 		reader = csv.DictReader(cargo_csvfile)
