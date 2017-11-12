@@ -12,7 +12,8 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 	truck for a given cargo is the nearest truck possible in a way that it assures that the distance
 	travelled by all trucks is the minimum possible. This function also checks if a truck was
 	assigned to more than one cargo, if that happens, the function calls remove_duplicates() in
-	order to fix the issue.
+	order to fix the issue. Currently the function makes a copy of the cargo and truck list so it 
+	doensn't affect the referrences given, but it's not very space efficient.
 
 	Args:
 		cargo_list: The list of cargos to find the nearest truck

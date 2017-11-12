@@ -27,8 +27,6 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 	trucks in the neighbour states from the cargo state. If trucks are found, the function selects
 	the closest truck as the chosen one, if no trucks are found in the origin and neighbour states,
 	the function is recursevly called to look for trucks in the neighbour's neighbour states.
-	Currently the function makes a copy of the cargo and truck list so it doensn't affect the 
-	referrences given, but it's not very space efficient.
 
 	Args:
 		root_state: Current state being checked for nearby trucks
