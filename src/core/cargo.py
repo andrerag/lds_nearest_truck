@@ -13,8 +13,6 @@ class Cargo:
             destination_city: City where the cargo is going
             destination_state: State where the cargo is going
             destination: Coordinates of product destination
-            origin_neighbour_states: List of neighbouring states of the origin state        
-    
     """
     def __init__(self, product,origin_city,origin_state,origin_lat,origin_lng,
                  destination_city,destination_state,destination_lat,destination_lng):
@@ -26,4 +24,3 @@ class Cargo:
         self.destination_city         = destination_city
         self.destination_state        = destination_state
         self.destination              = Coordinates(destination_lat, destination_lng)
-        self.origin_neighbour_states  = NEIGHBOURS[origin_state]
