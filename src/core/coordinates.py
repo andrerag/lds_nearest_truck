@@ -90,7 +90,7 @@ class Coordinates(object):
 		Raises:
 			InvalidCoordinates: An invalid longitude value was given
 		"""		
-		fvalue = float(fvalue)
+		fvalue = float(value)
 		if fvalue < -180. or fvalue > 180.:
 			raise InvalidCoordinate("Latitude value not valid (-180 <= lat <= 180)")
 		self._lng = fvalue
