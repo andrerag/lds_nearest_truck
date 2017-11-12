@@ -1,6 +1,5 @@
 from utils.us_states import NEIGHBOURS
 from core.coordinates import Coordinates
-from utils.neighbour_states import InvalidUSState
 
 class Cargo(object):
     """ This class represents a single cargo. It contains product information, where it is and

@@ -1,6 +1,6 @@
 from core.coordinates import Coordinates
-from utils.neighbour_states import NEIGHBOURS
-from utils.neighbour_states import InvalidUSState
+from utils.us_states import NEIGHBOURS
+from utils.us_states import InvalidUSState
 
 class Truck(object):
 	""" This class represents a single Truck. It contains truck description and it's location
