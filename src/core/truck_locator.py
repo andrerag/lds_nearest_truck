@@ -3,6 +3,17 @@ from core.cargo  import Cargo
 from utils.neighbour_states import NEIGHBOURS
 
 def find_nearest_truck(cargo, trucks_bystate):
+	""" Finds the nearest truck to the given Cargo object
+
+		Args:
+			cargo: Cargo with coordinate information
+			trucks_bystate: Truck list sorted by the US state they are located
+
+		Returns:
+			A tuple in which the first element is the nearest truck to that cargo and the second
+			element is the distance in Km from the truck to the cargo.
+			(Truck Object, Distance)
+	"""
 	if len(trucks_bystate) == 0:
 		return None, None
 
@@ -10,6 +21,26 @@ def find_nearest_truck(cargo, trucks_bystate):
 	return nearest_truck(cargo.origin_state, cargo, trucks_bystate, visited_states)
 
 def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
+	"""Recursive function to look for trucks in origin and nearby states
+
+	This function first searches for available trucks in the cargos origin state, it than looks for
+	trucks in the neighbour states from the cargo state. If trucks are found, the function selects
+	the closest truck as the chosen one, if no trucks are found in the origin and neighbour states,
+	the function is recursevly called to look for trucks in the neighbour's neighbour states.
+	Currently the function makes a copy of the cargo and truck list so it doensn't affect the 
+	referrences given, but it's not very space efficient.
+
+	Args:
+		root_state: Current state being checked for nearby trucks
+		cargo: Cargo object conatining lattitude and longitude information
+		trucks_bystate: Truck list sorte by the state they are located
+		visited_states: List of states that have been checked for trucks
+
+	Returns:
+		A tuple in which the first element is the nearest truck to that cargo and the second
+		element is the distance in Km from the truck to the cargo.
+		(Truck Object, Distance)	
+	"""
 	nearest_truck_root_state = None
 	shortest_distance_root_state = -1.
 	nearest_truck_neighbours = None
@@ -23,8 +54,6 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 
 	nearest_truck_neighbours, shortest_distance_neighbours = find_trucks_in_neighbours(root_state, 
 		cargo, trucks_bystate, visited_states)
-
-	# If no trucks were found, recursevly look for trucks in the neighbour's neighbours
 
 	if (shortest_distance_neighbours == -1.) and (shortest_distance == -1.):
 		for curr_neighbour in NEIGHBOURS[cargo.origin_state]:
@@ -43,6 +72,17 @@ def nearest_truck(root_state ,cargo, trucks_bystate, visited_states):
 
 
 def nearest_truck_in_state(cargo, state_truck_list):
+	"""Looks for the nearest truck relative to the given cargo
+
+	Args:
+		cargo: Cargo object conatining lattitude and longitude information
+		state_truck_list: List of trucks located in a given state.
+
+	Returns:
+		A tuple in which the first element is the nearest truck to that cargo and the second
+		element is the distance in Km from the truck to the cargo.
+		(Truck Object, Distance)
+	"""
 	nearest_truck = None
 	shortest_distance = -1.
 
@@ -59,6 +99,19 @@ def nearest_truck_in_state(cargo, state_truck_list):
 	return nearest_truck, shortest_distance
 
 def find_trucks_in_neighbours(root_state ,cargo, trucks_bystate, visited_states):
+	"""Looks for trucks in the given root_state neighbours
+
+	Args:
+		root_state: Current state being checked for nearby trucks
+		cargo: Cargo object conatining lattitude and longitude information
+		trucks_bystate: Truck list sorted by the US state they are located
+		visited_states: List of states that have been checked for trucks
+
+	Returns:
+		A tuple in which the first element is the nearest truck to that cargo and the second
+		element is the distance in Km from the truck to the cargo.
+		(Truck Object, Distance)	
+	"""
 	nearest_truck_neighbours = None
 	shortest_distance_neighbours = -1.
 
