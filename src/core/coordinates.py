@@ -1,6 +1,13 @@
 import math
 
-class Coordinates:
+class InvalidCoordinate(Exception):
+	def __init__(self, value):
+		self.value = value
+
+	def __str__(self):
+		return repr(self.value)
+
+class Coordinates(object):
 	"""Contains lattitude and longitude information
 	
 	This class is not just a C-like struct object. The Coordinates class is also able to
@@ -13,8 +20,8 @@ class Coordinates:
 	"""
 	def __init__(self, lat, lng):
 		"""Constructor for the Coordinates class"""
-		self.lat = float(lat)
-		self.lng = float(lng)
+		self._lat = float(lat)
+		self._lng = float(lng)
 	
 	def distance_to(self, coordinates):
 		"""Calculates the distance to another Coordinates object
@@ -49,3 +56,41 @@ class Coordinates:
 		angular_distance = 2 * math.atan2(math.sqrt(halfchord_square), math.sqrt(1 - halfchord_square))
 		
 		return (earth_radius * angular_distance)
+
+	@property
+	def lat(self):
+		return self._lat
+
+	@lat.setter
+	def lat(self, value):
+		"""Setter method for lattitude value
+		
+		Args:
+			value: Latitude value must be in the interval: -90 <= value <= +90
+
+		Raises:
+			InvalidCoordinates: An invalid lattitude was given
+		"""
+		fvalue = float(value)
+		if fvalue < -90. or fvalue > 90:
+			raise InvalidCoordinate("Latitude value not valid (90 <= lat <= 90)")
+		self._lat = fvalue
+
+	@property
+	def lng(self):
+		return self._lng
+
+	@lng.setter
+	def lng(self, value):
+		"""Setter method for longitude value
+
+		Args:
+			value: Longitude value must be in the interval: -180 <= value <= 180
+
+		Raises:
+			InvalidCoordinates: An invalid longitude value was given
+		"""		
+		fvalue = float(fvalue)
+		if fvalue < -180. or fvalue > 180.:
+			raise InvalidCoordinate("Latitude value not valid (-180 <= lat <= 180)")
+		self._lng = fvalue
