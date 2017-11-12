@@ -1,5 +1,12 @@
 from collections import defaultdict
 
+class InvalidUSState(Exception):
+	def __init__(self, value):
+		self.value = value
+
+	def value(self):
+		return repr(self.value)
+
 NEIGHBOURS = {
 'AL' : ['FL', 'GA', 'MS', 'TN'],
 'AK' : [''],
