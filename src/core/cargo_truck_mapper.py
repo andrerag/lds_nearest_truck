@@ -1,4 +1,3 @@
-from copy import deepcopy
 from collections import defaultdict
 
 from core import truck_locator
