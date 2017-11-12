@@ -4,17 +4,15 @@ from utils import csv_parser
 from core.trucks import Truck
 from core.cargo import Cargo
 
-def plot_results(cargos_csvfile, trucks_csvfile, truck_cargo_mapping):
+def plot_results(cargos_csvfile, trucks_csvfile, cargo_truck_mapping):
 	truck_list = csv_parser.load_trucks_bystate(trucks_csvfile)
 	cargo_list = csv_parser.load_cargo_list(cargos_csvfile)
 
-	CARGO = 0
-
 	gmap = gmplot.GoogleMapPlotter.from_geocode('United States', 5)
 
-	for truck in truck_cargo_mapping:
-		path = [(truck_cargo_mapping[truck][0][CARGO].origin.lat, truck.location.lat), 
-			(truck_cargo_mapping[truck][0][CARGO].origin.lng, truck.location.lng)]
+	for cargo_truck in cargo_truck_mapping:
+		path = [(cargo_truck[0].origin.lat, cargo_truck[1].location.lat), 
+			(cargo_truck[0].origin.lng, cargo_truck[1].location.lng)]
 		gmap.plot(path[0], path[1], "black", edge_width=2)
 
 	for cargo in cargo_list:

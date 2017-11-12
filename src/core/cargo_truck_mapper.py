@@ -18,13 +18,10 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 		trucks_bystate: Dictionary object of all trucks sorted by the state they are located
 
 	Returns:
-		A dict mapping of the trucks and their respective cargos. Currently the dict has the
+		A list tuple of the cargos and their respective trucks. Currently the list has the
 		following structure:
 
-		{'Truck Object': ((Cargo Object, Distance to Truck))}
-
-		Note that the value of the dict is a list of tuples. This needs to be corrected 
-
+		[(Cargo Object, Truck Object, Distance to Truck)]
 	"""
 	unique_cargo_to_trucks = False
 	truck_cargo_map = defaultdict(list)
@@ -45,7 +42,11 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 
 				unique_cargo_to_trucks = False
 
-	return	truck_cargo_map, get_total_distance(truck_cargo_map)
+	cargo_to_truck = []
+	for truck in truck_cargo_map:
+		cargo_to_truck.append((truck_cargo_map[truck][0][0], truck, truck_cargo_map[truck][0][1]))
+
+	return	cargo_to_truck
 
 def remove_duplicates(truck, truck_cargo_map, trucks_bystate):
 	""" Removes duplicates from the given truck to cargo mapping
