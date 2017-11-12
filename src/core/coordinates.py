@@ -92,5 +92,5 @@ class Coordinates(object):
         """        
         fvalue = float(value)
         if fvalue < -180. or fvalue > 180.:
-            raise InvalidCoordinate("Latitude value not valid (-180 <= lat <= 180)")
+            raise InvalidCoordinate("Longitude value not valid (-180 <= lat <= 180)")
         self._lng = fvalue
