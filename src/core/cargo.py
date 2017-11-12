@@ -2,7 +2,7 @@ from utils.neighbour_states import NEIGHBOURS
 from core.coordinates import Coordinates
 
 class Cargo:
-    """ This class represents a single cargo. It contains product information, wheret it is and
+    """ This class represents a single cargo. It contains product information, where it is and
         where it's going
     
         Attributes:
@@ -16,7 +16,7 @@ class Cargo:
     """
     def __init__(self, product,origin_city,origin_state,origin_lat,origin_lng,
                  destination_city,destination_state,destination_lat,destination_lng):
-        """Constructr for the Cargo class"""
+        """Constructor for the Cargo class"""
         self.product                  = product        
         self.origin_city              = origin_city
         self.origin_state             = origin_state
