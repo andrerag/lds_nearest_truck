@@ -12,8 +12,7 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 	truck for a given cargo is the nearest truck possible in a way that it assures that the distance
 	travelled by all trucks is the minimum possible. This function also checks if a truck was
 	assigned to more than one cargo, if that happens, the function calls remove_duplicates() in
-	order to fix the issue. Currently the function makes a copy of the cargo and truck list so it 
-	doensn't affect the referrences given, but it's not very space efficient.
+	order to fix the issue.
 
 	Args:
 		cargo_list: The list of cargos to find the nearest truck
@@ -29,24 +28,21 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 
 	"""
 	unique_cargo_to_trucks = False
-	trucks_bystate_cpy = deepcopy(trucks_bystate)
-	cargo_list_cpy = deepcopy(cargo_list)
-
 	truck_cargo_map = defaultdict(list)
 
 	while not unique_cargo_to_trucks:
 		unique_cargo_to_trucks = True
 	
-		for curr_cargo in cargo_list_cpy:
-			truck, distance = truck_locator.find_nearest_truck(curr_cargo, trucks_bystate_cpy)
+		for curr_cargo in cargo_list:
+			truck, distance = truck_locator.find_nearest_truck(curr_cargo, trucks_bystate)
 			truck_cargo_map[truck].append((curr_cargo, distance))
 
 		for curr_truck in truck_cargo_map:
 			if len(truck_cargo_map[curr_truck]) > 1:
-				remove_duplicates(curr_truck, truck_cargo_map, trucks_bystate_cpy)
+				remove_duplicates(curr_truck, truck_cargo_map, trucks_bystate)
 				
-				trucks_bystate_cpy[curr_truck.state].remove(curr_truck)
-				cargo_list_cpy.remove(truck_cargo_map[curr_truck][0][0])
+				trucks_bystate[curr_truck.state].remove(curr_truck)
+				cargo_list.remove(truck_cargo_map[curr_truck][0][0])
 
 				unique_cargo_to_trucks = False
 
