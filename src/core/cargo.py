@@ -1,4 +1,4 @@
-from utils.neighbour_states import NEIGHBOURS
+from utils.us_states import NEIGHBOURS
 from core.coordinates import Coordinates
 
 class Cargo:

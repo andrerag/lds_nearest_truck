@@ -1,6 +1,6 @@
 from core.trucks import Truck
 from core.cargo  import Cargo
-from utils.neighbour_states import NEIGHBOURS
+from utils.us_states import NEIGHBOURS
 
 def find_nearest_truck(cargo, trucks_bystate):
 	""" Finds the nearest truck to the given Cargo object
