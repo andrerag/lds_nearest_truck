@@ -25,6 +25,7 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 	"""
 	unique_cargo_to_trucks = False
 	truck_cargo_map = defaultdict(list)
+	cargo_to_truck = []
 
 	while not unique_cargo_to_trucks:
 		unique_cargo_to_trucks = True
@@ -39,12 +40,11 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 				
 				trucks_bystate[curr_truck.state].remove(curr_truck)
 				cargo_list.remove(truck_cargo_map[curr_truck][0][0])
+				
+				cargo_to_truck.append((truck_cargo_map[curr_truck][0][0], curr_truck, 
+					truck_cargo_map[curr_truck][0][1]))
 
 				unique_cargo_to_trucks = False
-
-	cargo_to_truck = []
-	for truck in truck_cargo_map:
-		cargo_to_truck.append((truck_cargo_map[truck][0][0], truck, truck_cargo_map[truck][0][1]))
 
 	return	cargo_to_truck
 
