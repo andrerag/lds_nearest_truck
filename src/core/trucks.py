@@ -1,16 +1,16 @@
 from core.coordinates import Coordinates
 
 class Truck:
-    """ This class represents a single Truck. It contains truck description and it's location
-    
-        Attributes:
-            truck: Truck description
-            city: City where the truck is located
-            state: State where the truck is located
-            location: Coordinates object containing latitude and longitude
-    """
+	""" This class represents a single Truck. It contains truck description and it's location
+
+	    Attributes:
+	        truck: Truck description
+	        city: City where the truck is located
+	        state: State where the truck is located
+	        location: Coordinates object containing latitude and longitude
+	"""
 	def __init__(self, truck, city, state, lat, lng):
-		"""Constructor for Truck class"""
+		"""Constructor for the Truck class"""
 		self.truck = truck
 		self.city  = city
 		self.state = state
