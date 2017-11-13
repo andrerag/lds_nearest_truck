@@ -16,10 +16,14 @@ class CoordinatesTest(unittest.TestCase):
             with self.assertRaises(InvalidCoordinate):
                 coord = Coordinates(-91.0, -30.0)
             with self.assertRaises(InvalidCoordinate):
-                coord = Coordinates(91.0, -30.0)
+                coord1 = Coordinates(91.0, -30.0)
+            with self.assertRaises(ValueErrorError):
+                coord2 = Coordinates('not a number', -40.)
                 
         def test_invalid_longitude(self):
             with self.assertRaises(InvalidCoordinate):
                 coord = Coordinates(-34.0, -181.0)
             with self.assertRaises(InvalidCoordinate):
-                coord = Coordinates(-34.0, 181.0)
+                coord1 = Coordinates(-34.0, 181.0)
+            with self.assertRaises(ValueError):
+                coord2 = Coordinates(-40., 'not a number')
