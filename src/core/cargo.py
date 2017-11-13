@@ -45,7 +45,7 @@ class Cargo(object):
 
     @property
     def destination_state(self):
-        return self._state
+        return self._destination_state
 
     @destination_state.setter
     def destination_state(self, value):
