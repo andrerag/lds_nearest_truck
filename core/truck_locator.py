@@ -32,9 +32,9 @@ class TruckLocator:
         return self._nearest_truck(self._cargo.origin_state)
 
     def _nearest_truck(self, origin_state):
-        """Recursive function to look for trucks in origin and nearby states
+        """Looks for trucks in origin and nearby states
 
-        This function first searches for available trucks in the cargos origin state, it than looks for
+        This function first searches for available trucks in the cargo's origin state, it than looks for
         trucks in the neighbour states from the cargo state. If trucks are found, the function selects
         the closest truck as the chosen one, if no trucks are found in the origin and neighbour states,
         the function expands the search area and looks for trucks in the neighbour's neighbour states.
