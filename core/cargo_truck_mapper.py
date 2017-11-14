@@ -33,10 +33,10 @@ class CargoTruckMapper:
         truck_locator = TruckLocator(self._trucks_bystate)
 
         unique_cargo_to_trucks = False
-        truck_cargo_map = defaultdict(list)
         cargo_to_truck = []
 
         while not unique_cargo_to_trucks:
+            truck_cargo_map = defaultdict(list)
             unique_cargo_to_trucks = True
         
             for curr_cargo in self._cargo_list:
@@ -55,6 +55,10 @@ class CargoTruckMapper:
                     cargo_to_truck.append((cargo, curr_truck, distance))
 
                     unique_cargo_to_trucks = False
+                else:
+                    cargo, distance = self._get_cargo_distance(curr_truck, truck_cargo_map)
+                    cargo_to_truck.append((cargo, curr_truck, distance))
+
 
         return cargo_to_truck
 
