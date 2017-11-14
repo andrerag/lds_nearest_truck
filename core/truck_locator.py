@@ -52,7 +52,7 @@ class TruckLocator:
         shortest_distance_neighbours = -1.
 
         if (len(self._trucks_bystate[root_state]) > 0) and (root_state not in self._visited_states) :
-            nearest_truck_root_state, shortest_distance_root_state = self._nearest_truck_in_state(self._trucks_bystate[root_state])
+            nearest_truck_root_state, shortest_distance_root_state = self._nearest_truck_in_state(root_state)
         
         self._visited_states.add(root_state)
 
@@ -77,7 +77,7 @@ class TruckLocator:
             return nearest_truck_neighbours, shortest_distance_neighbours
 
 
-    def _nearest_truck_in_state(self, state_truck_list):
+    def _nearest_truck_in_state(self, root_state):
         """Looks for the nearest truck relative to the given cargo
 
         Args:
@@ -90,6 +90,7 @@ class TruckLocator:
         """
         nearest_truck = None
         shortest_distance = -1.
+        state_truck_list = self._trucks_bystate[root_state]
 
         for curr_truck in state_truck_list:
             if shortest_distance == -1.:
@@ -122,7 +123,7 @@ class TruckLocator:
                 self._visited_states.add(curr_neighbour)
                 continue
 
-            neighbour_truck, curr_distance = self._nearest_truck_in_state(self._trucks_bystate[curr_neighbour])
+            neighbour_truck, curr_distance = self._nearest_truck_in_state(curr_neighbour)
             
             if (curr_distance < shortest_distance_neighbours) or (shortest_distance_neighbours == -1.):
                 nearest_truck_neighbours = neighbour_truck
