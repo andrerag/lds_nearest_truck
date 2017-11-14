@@ -6,6 +6,12 @@ from core.cargo  import Cargo
 
 class CargoTruckMapper:
     def __init__(self, cargo_list, trucks_bystate):
+    	"""Constructor for the CargoTruckMapper
+
+    	Attributes:
+    		cargo_list: List of cargos to mapped with nearest trucks
+    		trucks_bystate: List of trucks sorted by state
+    	"""
         self._cargo_list = cargo_list
         self._trucks_bystate = trucks_bystate
 
@@ -50,7 +56,7 @@ class CargoTruckMapper:
 
                     unique_cargo_to_trucks = False
 
-        return    cargo_to_truck
+        return cargo_to_truck
 
     def _remove_duplicates(self, truck, truck_cargo_map):
         """ Removes duplicates from the given truck to cargo mapping

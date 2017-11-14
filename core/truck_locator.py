@@ -4,6 +4,11 @@ from utils.us_states import NEIGHBOURS
 
 class TruckLocator:
     def __init__(self, trucks_bystate):
+        """Constructor for the TruckLocator class
+
+        Attributes:
+            trucks_bystate: Truck list sorte by state
+        """
         self._trucks_bystate = trucks_bystate
 
     def find_nearest_truck(self, cargo):
