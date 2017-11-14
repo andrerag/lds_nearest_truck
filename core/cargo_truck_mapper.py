@@ -4,74 +4,77 @@ from core.truck_locator import TruckLocator
 from core.trucks import Truck
 from core.cargo  import Cargo
 
-def map_cargos_to_trucks(cargo_list, trucks_bystate):
-	"""Maps cargos to trucks
+class CargoTruckMapper:
+    def __init__(self, cargo_list, trucks_bystate):
+        self._cargo_list = cargo_list
+        self._trucks_bystate = trucks_bystate
 
-	This fuction goes through the cargo list and finds the appropriate truck for it. The appropriate
-	truck for a given cargo is the nearest truck possible in a way that it assures that the distance
-	travelled by all trucks is the minimum possible. This function also checks if a truck was
-	assigned to more than one cargo, if that happens, the function calls remove_duplicates() in
-	order to fix the issue.
+    def map_cargos_to_trucks(self):
+        """Maps cargos to trucks
 
-	Args:
-		cargo_list: The list of cargos to find the nearest truck
-		trucks_bystate: Dictionary object of all trucks sorted by the state they are located
+        This fuction goes through the cargo list and finds the appropriate truck for it. The appropriate
+        truck for a given cargo is the nearest truck possible in a way that it assures that the distance
+        travelled by all trucks is the minimum possible. This function also checks if a truck was
+        assigned to more than one cargo, if that happens, the function calls remove_duplicates() in
+        order to fix the issue.
 
-	Returns:
-		A list tuple of the cargos and their respective trucks. Currently the list has the
-		following structure:
+        Args:
+            cargo_list: The list of cargos to find the nearest truck
+            trucks_bystate: Dictionary object of all trucks sorted by the state they are located
 
-		[(Cargo Object, Truck Object, Distance to Truck)]
-	"""
-	truck_locator = TruckLocator(trucks_bystate)
+        Returns:
+            A list tuple of the cargos and their respective trucks. Currently the list has the
+            following structure:
 
-	unique_cargo_to_trucks = False
-	truck_cargo_map = defaultdict(list)
-	cargo_to_truck = []
+            [(Cargo Object, Truck Object, Distance to Truck)]
+        """
+        truck_locator = TruckLocator(self._trucks_bystate)
 
-	while not unique_cargo_to_trucks:
-		unique_cargo_to_trucks = True
-	
-		for curr_cargo in cargo_list:
-			truck, distance = truck_locator.find_nearest_truck(curr_cargo)
-			truck_cargo_map[truck].append((curr_cargo, distance))
+        unique_cargo_to_trucks = False
+        truck_cargo_map = defaultdict(list)
+        cargo_to_truck = []
 
-		for curr_truck in truck_cargo_map:
-			if len(truck_cargo_map[curr_truck]) > 1:
-				remove_duplicates(curr_truck, truck_cargo_map, trucks_bystate)
-				
-				cargo, distance = get_cargo_distance(truck_cargo_map, curr_truck)
+        while not unique_cargo_to_trucks:
+            unique_cargo_to_trucks = True
+        
+            for curr_cargo in self._cargo_list:
+                truck, distance = truck_locator.find_nearest_truck(curr_cargo)
+                truck_cargo_map[truck].append((curr_cargo, distance))
 
-				trucks_bystate[curr_truck.state].remove(curr_truck)
-				cargo_list.remove(cargo)
-				
-				cargo_to_truck.append((cargo, curr_truck, distance))
+            for curr_truck in truck_cargo_map:
+                if len(truck_cargo_map[curr_truck]) > 1:
+                    self._remove_duplicates(curr_truck, truck_cargo_map)
+                    
+                    cargo, distance = self._get_cargo_distance(truck_cargo_map, curr_truck)
 
-				unique_cargo_to_trucks = False
+                    self._trucks_bystate[curr_truck.state].remove(curr_truck)
+                    self._cargo_list.remove(cargo)
+                    
+                    cargo_to_truck.append((cargo, curr_truck, distance))
 
-	return	cargo_to_truck
+                    unique_cargo_to_trucks = False
 
-def remove_duplicates(truck, truck_cargo_map, trucks_bystate):
-	""" Removes duplicates from the given truck to cargo mapping
+        return    cargo_to_truck
 
-		This function removes all cargos except for the one that is furthest away from the truck. The 
-		farthest cargo from the truck is the best match for that given cargo in order to have a minimum 
-		overall truck distance.
+    def _remove_duplicates(self, truck, truck_cargo_map):
+        """ Removes duplicates from the given truck to cargo mapping
 
-		Args:
-			truck: Current Truck being processed.
-			truck_cargo_map: Truck cargo dict being processed
-			trucks_bystate: Truck list sorted by the states they are currently located
+            This function removes all cargos except for the one that is furthest away from the truck. The 
+            farthest cargo from the truck is the best match for that given cargo in order to have a minimum 
+            overall truck distance.
 
-	"""
-	(furthest_cargo, furthest_distance) = truck_cargo_map[truck][0]
-	
-	for (curr_cargo, curr_distance) in truck_cargo_map[truck]:
-		if curr_distance > furthest_distance:
-			truck_cargo_map[truck].remove((furthest_cargo, furthest_distance))
-			(furthest_cargo, furthest_distance) = (curr_cargo, curr_distance)
-		else:
-			truck_cargo_map[truck].remove((curr_cargo, curr_distance))
+            Args:
+                truck: Current Truck being processed.
+                truck_cargo_map: Truck cargo dict being processed
+        """
+        (furthest_cargo, furthest_distance) = truck_cargo_map[truck][0]
+        
+        for (curr_cargo, curr_distance) in truck_cargo_map[truck]:
+            if curr_distance > furthest_distance:
+                truck_cargo_map[truck].remove((furthest_cargo, furthest_distance))
+                (furthest_cargo, furthest_distance) = (curr_cargo, curr_distance)
+            else:
+                truck_cargo_map[truck].remove((curr_cargo, curr_distance))
 
-def get_cargo_distance(truck_cargo_map, truck):
-	return truck_cargo_map[truck][0][0], truck_cargo_map[truck][0][1]
+    def _get_cargo_distance(self, truck_cargo_map, truck):
+        return truck_cargo_map[truck][0][0], truck_cargo_map[truck][0][1]

@@ -23,9 +23,9 @@ class TruckLocator:
         self._cargo = cargo
         self._visited_states = set()
 
-        return self.nearest_truck(self._cargo.origin_state)
+        return self._nearest_truck(self._cargo.origin_state)
 
-    def nearest_truck(self, root_state):
+    def _nearest_truck(self, root_state):
         """Recursive function to look for trucks in origin and nearby states
 
         This function first searches for available trucks in the cargos origin state, it than looks for
@@ -47,15 +47,15 @@ class TruckLocator:
         shortest_distance_neighbours = -1.
 
         if (len(self._trucks_bystate[root_state]) > 0) and (root_state not in self._visited_states) :
-            nearest_truck_root_state, shortest_distance_root_state = self.nearest_truck_in_state(self._trucks_bystate[root_state])
+            nearest_truck_root_state, shortest_distance_root_state = self._nearest_truck_in_state(self._trucks_bystate[root_state])
         
         self._visited_states.add(root_state)
 
-        nearest_truck_neighbours, shortest_distance_neighbours = self.find_trucks_in_neighbours(root_state)
+        nearest_truck_neighbours, shortest_distance_neighbours = self._find_trucks_in_neighbours(root_state)
 
         if (shortest_distance_neighbours == -1.) and (shortest_distance_root_state == -1.):
             for curr_neighbour in NEIGHBOURS[root_state]:
-                curr_truck, curr_distance = self.nearest_truck(curr_neighbour)
+                curr_truck, curr_distance = self._nearest_truck(curr_neighbour)
 
             if (curr_distance < shortest_distance_neighbours) or (shortest_distance_neighbours == -1.):
                 nearest_truck_neighbours = curr_truck
@@ -72,7 +72,7 @@ class TruckLocator:
             return nearest_truck_neighbours, shortest_distance_neighbours
 
 
-    def nearest_truck_in_state(self, state_truck_list):
+    def _nearest_truck_in_state(self, state_truck_list):
         """Looks for the nearest truck relative to the given cargo
 
         Args:
@@ -98,7 +98,7 @@ class TruckLocator:
 
         return nearest_truck, shortest_distance
 
-    def find_trucks_in_neighbours(self, root_state):
+    def _find_trucks_in_neighbours(self, root_state):
         """Looks for trucks in the given root_state neighbours
 
         Args:
@@ -117,7 +117,7 @@ class TruckLocator:
                 self._visited_states.add(curr_neighbour)
                 continue
 
-            neighbour_truck, curr_distance = self.nearest_truck_in_state(self._trucks_bystate[curr_neighbour])
+            neighbour_truck, curr_distance = self._nearest_truck_in_state(self._trucks_bystate[curr_neighbour])
             
             if (curr_distance < shortest_distance_neighbours) or (shortest_distance_neighbours == -1.):
                 nearest_truck_neighbours = neighbour_truck
