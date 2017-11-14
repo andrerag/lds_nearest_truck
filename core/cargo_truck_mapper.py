@@ -18,10 +18,6 @@ class CargoTruckMapper:
         assigned to more than one cargo, if that happens, the function calls remove_duplicates() in
         order to fix the issue.
 
-        Args:
-            cargo_list: The list of cargos to find the nearest truck
-            trucks_bystate: Dictionary object of all trucks sorted by the state they are located
-
         Returns:
             A list tuple of the cargos and their respective trucks. Currently the list has the
             following structure:
@@ -45,7 +41,7 @@ class CargoTruckMapper:
                 if len(truck_cargo_map[curr_truck]) > 1:
                     self._remove_duplicates(curr_truck, truck_cargo_map)
                     
-                    cargo, distance = self._get_cargo_distance(truck_cargo_map, curr_truck)
+                    cargo, distance = self._get_cargo_distance(curr_truck, truck_cargo_map)
 
                     self._trucks_bystate[curr_truck.state].remove(curr_truck)
                     self._cargo_list.remove(cargo)
@@ -67,7 +63,7 @@ class CargoTruckMapper:
                 truck: Current Truck being processed.
                 truck_cargo_map: Truck cargo dict being processed
         """
-        (furthest_cargo, furthest_distance) = truck_cargo_map[truck][0]
+        furthest_cargo, furthest_distance = self._get_cargo_distance(truck, truck_cargo_map)
         
         for (curr_cargo, curr_distance) in truck_cargo_map[truck]:
             if curr_distance > furthest_distance:
@@ -76,5 +72,5 @@ class CargoTruckMapper:
             else:
                 truck_cargo_map[truck].remove((curr_cargo, curr_distance))
 
-    def _get_cargo_distance(self, truck_cargo_map, truck):
+    def _get_cargo_distance(self, truck, truck_cargo_map):
         return truck_cargo_map[truck][0][0], truck_cargo_map[truck][0][1]
