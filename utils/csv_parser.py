@@ -57,3 +57,12 @@ def load_cargo_list(csvfile):
                                     curr_cargo['destination_lat'],\
                                     curr_cargo['destination_lng']))
     return cargo_list
+    
+def generate_csv_results(csv_filename, cargo_truck_map):
+    print len(cargo_truck_map)
+    with open(csv_filename, 'wb') as csvfile:
+        writer = csv.writer(csvfile, quotechar=',')                                
+        writer.writerow(['product', 'origin_lat', 'origin_lng', 'truck', 'lat', 'lng'])
+        for (cargo, truck, distance) in cargo_truck_map:
+            writer.writerow([cargo.product, cargo.origin.lat, cargo.origin.lng,\
+                            truck.truck, truck.location.lat, truck.location.lng])
