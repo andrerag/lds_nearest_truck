@@ -27,6 +27,7 @@ class TruckLocator:
 
         self._cargo = cargo
         self._visited_states = set()
+        self._search_area = NEIGHBOURS[self._cargo.origin_state]
 
         return self._nearest_truck(self._cargo.origin_state)
 
@@ -55,8 +56,7 @@ class TruckLocator:
             nearest_truck_origin_state, shortest_distance_origin_state = self._nearest_truck_in_state(origin_state)
         
         self._visited_states.add(origin_state)
-
-        self._search_area = NEIGHBOURS[origin_state]
+        
         nearest_truck_neighbours, shortest_distance_neighbours = self._find_trucks_in_neighbours()
 
         if (shortest_distance_neighbours == -1.) and (shortest_distance_origin_state == -1.):            
@@ -115,6 +115,7 @@ class TruckLocator:
 
         for curr_neighbour in self._search_area:
             if(curr_neighbour not in self._trucks_bystate):
+                self._visited_states.add(curr_neighbour)
                 continue
 
             if (len(self._trucks_bystate[curr_neighbour]) == 0) and (curr_neighbour not in self._visited_states):
