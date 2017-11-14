@@ -9,7 +9,7 @@ class CargoTruckMapper:
         """Constructor for the CargoTruckMapper
 
         Attributes:
-            cargo_list: List of cargos to mapped with nearest trucks
+            cargo_list: List of cargos to be mapped with nearest trucks
             trucks_bystate: List of trucks sorted by state
         """
         self._cargo_list = cargo_list
