@@ -6,12 +6,12 @@ from core.cargo  import Cargo
 
 class CargoTruckMapper:
     def __init__(self, cargo_list, trucks_bystate):
-    	"""Constructor for the CargoTruckMapper
+        """Constructor for the CargoTruckMapper
 
-    	Attributes:
-    		cargo_list: List of cargos to mapped with nearest trucks
-    		trucks_bystate: List of trucks sorted by state
-    	"""
+        Attributes:
+            cargo_list: List of cargos to mapped with nearest trucks
+            trucks_bystate: List of trucks sorted by state
+        """
         self._cargo_list = cargo_list
         self._trucks_bystate = trucks_bystate
 
@@ -34,6 +34,7 @@ class CargoTruckMapper:
 
         unique_cargo_to_trucks = False
         cargo_to_truck = []
+        cargo_to_truck_duplicates = []
 
         while not unique_cargo_to_trucks:
             truck_cargo_map = defaultdict(list)
@@ -42,8 +43,9 @@ class CargoTruckMapper:
             for curr_cargo in self._cargo_list:
                 truck, distance = truck_locator.find_nearest_truck(curr_cargo)
                 truck_cargo_map[truck].append((curr_cargo, distance))
-
-            for curr_truck in truck_cargo_map:
+            
+            del cargo_to_truck[:]
+            for curr_truck in truck_cargo_map:                
                 if len(truck_cargo_map[curr_truck]) > 1:
                     self._remove_duplicates(curr_truck, truck_cargo_map)
                     
@@ -52,15 +54,14 @@ class CargoTruckMapper:
                     self._trucks_bystate[curr_truck.state].remove(curr_truck)
                     self._cargo_list.remove(cargo)
                     
-                    cargo_to_truck.append((cargo, curr_truck, distance))
+                    cargo_to_truck_duplicates.append((cargo, curr_truck, distance))
 
                     unique_cargo_to_trucks = False
                 else:
                     cargo, distance = self._get_cargo_distance(curr_truck, truck_cargo_map)
                     cargo_to_truck.append((cargo, curr_truck, distance))
 
-
-        return cargo_to_truck
+        return cargo_to_truck + cargo_to_truck_duplicates
 
     def _remove_duplicates(self, truck, truck_cargo_map):
         """ Removes duplicates from the given truck to cargo mapping
