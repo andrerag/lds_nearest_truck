@@ -40,11 +40,12 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 			if len(truck_cargo_map[curr_truck]) > 1:
 				remove_duplicates(curr_truck, truck_cargo_map, trucks_bystate)
 				
+				cargo, distance = get_cargo_distance(truck_cargo_map, curr_truck)
+
 				trucks_bystate[curr_truck.state].remove(curr_truck)
-				cargo_list.remove(truck_cargo_map[curr_truck][0][0])
+				cargo_list.remove(cargo)
 				
-				cargo_to_truck.append((truck_cargo_map[curr_truck][0][0], curr_truck, 
-					truck_cargo_map[curr_truck][0][1]))
+				cargo_to_truck.append((cargo, curr_truck, distance))
 
 				unique_cargo_to_trucks = False
 
@@ -71,3 +72,6 @@ def remove_duplicates(truck, truck_cargo_map, trucks_bystate):
 			(furthest_cargo, furthest_distance) = (curr_cargo, curr_distance)
 		else:
 			truck_cargo_map[truck].remove((curr_cargo, curr_distance))
+
+def get_cargo_distance(truck_cargo_map, truck):
+	return truck_cargo_map[truck][0][0], truck_cargo_map[truck][0][1]
