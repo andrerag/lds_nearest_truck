@@ -15,7 +15,7 @@ class Truck(object):
 		"""Constructor for the Truck class"""
 		self.truck = truck
 		self.city  = city
-		self._state = state
+		self.state = state
 		self.location = Coordinates(lat, lng)
 
 	def __hash__(self):

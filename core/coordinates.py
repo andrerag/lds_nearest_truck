@@ -20,8 +20,8 @@ class Coordinates(object):
     """
     def __init__(self, lat, lng):
         """Constructor for the Coordinates class"""
-        self._lat = float(lat)
-        self._lng = float(lng)
+        self.lat = float(lat)
+        self.lng = float(lng)
     
     def distance_to(self, coordinates):
         """Calculates the distance to another Coordinates object

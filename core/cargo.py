@@ -1,5 +1,6 @@
 from utils.us_states import NEIGHBOURS
 from core.coordinates import Coordinates
+from utils.us_states import InvalidUSState
 
 class Cargo(object):
     """ This class represents a single cargo. It contains product information, where it is and
@@ -19,10 +20,10 @@ class Cargo(object):
         """Constructor for the Cargo class"""
         self.product             = product        
         self.origin_city         = origin_city
-        self._origin_state       = origin_state
+        self.origin_state        = origin_state
         self.origin              = Coordinates(origin_lat, origin_lng)        
         self.destination_city    = destination_city
-        self._destination_state  = destination_state
+        self.destination_state   = destination_state
         self.destination         = Coordinates(destination_lat, destination_lng)
 
     @property

@@ -17,5 +17,3 @@ class TruckTest(unittest.TestCase):
     def test_create_invalid_truck(self):
         with self.assertRaises(InvalidUSState):
             invalid_truck = Truck('Maracatu', 'Recife', 'PE', -90., -90.)
-        with self.assertRaises(InvalidUSState):
-            invalid_truck = Truck('Maracatu', 'Recife', 'MO', -90., -90.)
