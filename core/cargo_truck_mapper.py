@@ -71,11 +71,3 @@ def remove_duplicates(truck, truck_cargo_map, trucks_bystate):
 			(furthest_cargo, furthest_distance) = (curr_cargo, curr_distance)
 		else:
 			truck_cargo_map[truck].remove((curr_cargo, curr_distance))
-
-def get_total_distance(truck_cargo_map):
-	""" Returns the total distance that all trucks will travel
-
-		Args:
-			truck_cargo_map: Truck to Cargo dictionary
-	"""
-	return 0;
