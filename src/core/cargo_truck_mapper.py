@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from core import truck_locator
+from core.truck_locator import TruckLocator
 from core.trucks import Truck
 from core.cargo  import Cargo
 
@@ -23,6 +23,8 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 
 		[(Cargo Object, Truck Object, Distance to Truck)]
 	"""
+	truck_locator = TruckLocator(trucks_bystate)
+
 	unique_cargo_to_trucks = False
 	truck_cargo_map = defaultdict(list)
 	cargo_to_truck = []
@@ -31,7 +33,7 @@ def map_cargos_to_trucks(cargo_list, trucks_bystate):
 		unique_cargo_to_trucks = True
 	
 		for curr_cargo in cargo_list:
-			truck, distance = truck_locator.find_nearest_truck(curr_cargo, trucks_bystate)
+			truck, distance = truck_locator.find_nearest_truck(curr_cargo)
 			truck_cargo_map[truck].append((curr_cargo, distance))
 
 		for curr_truck in truck_cargo_map:
