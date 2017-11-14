@@ -1,40 +1,21 @@
-Run: 
-    
+Run (Python 2.7.14): 
 	For csv output format:
-    
 	python loadsmart_takehome.py --trucks=./data/trucks.csv --cargo=./data/cargo.csv --output=csv
     
-    
-
 	For visual html output: (Obs: external dependency 'gmplot')
-    
 	python loadsmart_takehome.py --trucks=./data/trucks.csv --cargo=./data/cargo.csv --output=html
-    
-    
 
 	Unit tests:
-    
 	python -m unittest discover -m
     
-
-
 Solution:
-    
 	Since the distance travelled from the cargo's origin to destination is fixed, the problem is to find the nearest
-    
 possible truck in order to have a minimum distance travelled. The algorithm reads the csv file and sorts the trucks
-    
 by state into a dictionary, than for each cargo, it first searches for the nearest possible truck in the cargo's origin
-    
 state and neighbour states. If no trucks are found, the algorithm expands it's search area and looks for trucks in the 
-    
 neighbour's neighbours and so on (no trucks are removed from the truck list once they are assigned to a cargo). 
-    
 After this, if a truck is assigned to more than one cargo, the algorithm selects the cargo which has the furthest minimum
-    
 distance, removes the selected cargo truck pair from the lists and repeats the algorithm in order to find one truck for
-    
 each cargo. Once all trucks have a single cargo assigned to them, the algorithm returns.
-            
-            
 
+Obs: gmplot used to generate the html output is not using in the core package.
