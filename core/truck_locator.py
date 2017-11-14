@@ -55,7 +55,11 @@ class TruckLocator:
 
         if (shortest_distance_neighbours == -1.) and (shortest_distance_root_state == -1.):
             for curr_neighbour in NEIGHBOURS[root_state]:
-                nearest_truck_root_state, shortest_distance_root_state = self.nearest_truck(curr_neighbour)
+                curr_truck, curr_distance = self.nearest_truck(curr_neighbour)
+
+            if (curr_distance < shortest_distance_neighbours) or (shortest_distance_neighbours == -1.):
+                nearest_truck_neighbours = curr_truck
+                shortest_distance_neighbours = curr_distance                
 
         if shortest_distance_root_state == -1:
             return nearest_truck_neighbours, shortest_distance_neighbours
