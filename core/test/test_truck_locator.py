@@ -4,6 +4,7 @@ from collections import defaultdict
 from core.truck import Truck
 from core.truck_locator import TruckLocator
 from core.cargo import Cargo
+from utils.us_states import NEIGHBOURS
 
 class TruckLocatorTest(unittest.TestCase):
     def setUp(self):
@@ -159,3 +160,61 @@ class TruckLocatorTest(unittest.TestCase):
         
         locator = TruckLocator(trucks_bystate)
         self.assertEqual(locator.find_nearest_truck(self.cargo)[0], truck3)
+        
+    def test_search_area_trucks_in_state(self): #Tests a private method (white box test)
+        truck1 = Truck('RecifeTransport', 'County1', 'WY', 44.650855, -104.687268) #Farthest
+        truck2 = Truck('RecifeTransport', 'County2', 'WY', 44.022229, -105.478284) #Near
+        truck3 = Truck('RecifeTransport', 'County3', 'WY', 43.562262, -106.071546) #Close
+        truck4 = Truck('RecifeTransport', 'County4', 'WY', 42.825402, -107.631604) #Really close
+        
+        trucks_bystate = defaultdict(list)
+        trucks_bystate['WY'].append(truck1)
+        trucks_bystate['WY'].append(truck2)
+        trucks_bystate['WY'].append(truck3)
+        trucks_bystate['WY'].append(truck4)
+
+        locator = TruckLocator(trucks_bystate)
+        self.assertEqual(locator.find_nearest_truck(self.cargo)[0], truck4)
+        
+        search_area = locator._search_area
+        self.assertEqual(locator._search_area, NEIGHBOURS[self.cargo.origin_state])
+        
+    def test_search_area_trucks_in_state_and_neighbours(self): #Tests a private method (white box test)
+        truck1 = Truck('RecifeTransport', 'County1', 'WY', 44.650855, -104.687268) #Farthest
+        truck2 = Truck('RecifeTransport', 'County2', 'WY', 44.022229, -105.478284) #Near
+        truck3 = Truck('RecifeTransport', 'County3', 'WY', 43.562262, -106.071546) #Close
+        truck4 = Truck('RecifeTransport', 'County4', 'WY', 42.825402, -107.631604) #Really close
+        truck5 = Truck('RecifeTransport', 'County5', 'MT', 47.766819, -107.983167) #Other State
+        truck6 = Truck('RecifeTransport', 'County5', 'MT', 45.642636, -107.939221) #Other State
+        
+        trucks_bystate = defaultdict(list)
+        
+        trucks_bystate['WY'].append(truck1)
+        trucks_bystate['WY'].append(truck2)
+        trucks_bystate['WY'].append(truck3)
+        trucks_bystate['WY'].append(truck4)        
+        trucks_bystate['MT'].append(truck5)
+        trucks_bystate['MT'].append(truck6)
+        
+        locator = TruckLocator(trucks_bystate)       
+        self.assertEqual(locator.find_nearest_truck(self.cargo)[0], truck4)
+        
+        search_area = locator._search_area
+        self.assertEqual(locator._search_area, NEIGHBOURS[self.cargo.origin_state])
+
+    def test_expanded_search_area(self): #Tests a private method (white box test)
+        truck1 = Truck('RecifeTransport', 'County1', 'NM', 32.932369, -106.005628) #Farthest
+        truck2 = Truck('RecifeTransport', 'County2', 'AZ', 36.789248, -109.257581) #Near
+        truck3 = Truck('RecifeTransport', 'County3', 'KS', 39.748937, -101.661409) #Close
+
+        trucks_bystate = defaultdict(list)
+
+        trucks_bystate['NM'].append(truck1)
+        trucks_bystate['AZ'].append(truck2)
+        trucks_bystate['KS'].append(truck3)
+        
+        locator = TruckLocator(trucks_bystate)
+        self.assertEqual(locator.find_nearest_truck(self.cargo)[0], truck3)
+                
+        expandad_search_area = ['AZ', 'KS', 'NM', 'OK', 'NV', 'OR', 'WA', 'ND', 'IA', 'MO', 'MN']
+        self.assertEqual(locator._search_area, expandad_search_area)
