@@ -135,6 +135,7 @@ class TruckLocator:
         expanded_search_area = []
         for curr_neighbour in self._search_area:
             for curr_neighbour_neighbour in NEIGHBOURS[curr_neighbour]:
-                if curr_neighbour_neighbour not in self._visited_states:
+                if curr_neighbour_neighbour not in self._visited_states and\
+                   curr_neighbour_neighbour not in expanded_search_area:
                     expanded_search_area.append(curr_neighbour_neighbour)
         self._search_area = expanded_search_area
