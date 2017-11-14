@@ -6,7 +6,7 @@ Run (Python 2.7.14):
 	python loadsmart_takehome.py --trucks=./data/trucks.csv --cargo=./data/cargo.csv --output=html
 
 	Unit tests:
-	python -m unittest discover -m
+	python -m unittest discover -v
     
 Solution:
 	Since the distance travelled from the cargo's origin to destination is fixed, the problem is to find the nearest
