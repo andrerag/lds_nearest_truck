@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 from core.truck_locator import TruckLocator
-from core.trucks import Truck
+from core.truck import Truck
 from core.cargo  import Cargo
 
 class CargoTruckMapper:

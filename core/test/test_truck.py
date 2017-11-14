@@ -2,7 +2,7 @@ import unittest
 
 from utils.us_states import NEIGHBOURS
 from utils.us_states import InvalidUSState
-from core.trucks import Truck
+from core.truck import Truck
 
 class TruckTest(unittest.TestCase):
     def test_create_valid_truck(self):

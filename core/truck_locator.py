@@ -1,4 +1,4 @@
-from core.trucks import Truck
+from core.truck import Truck
 from core.cargo  import Cargo
 from utils.us_states import NEIGHBOURS
 

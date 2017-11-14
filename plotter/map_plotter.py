@@ -1,7 +1,7 @@
 import gmplot
 
 from utils import csv_parser
-from core.trucks import Truck
+from core.truck import Truck
 from core.cargo import Cargo
 
 def plot_results(cargos_csvfile, trucks_csvfile, cargo_truck_mapping):
