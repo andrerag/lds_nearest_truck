@@ -1,4 +1,4 @@
-Run script: python loadsmart_takehome.py --trucks=./data/trucks.csv --cargo=./data/cargo.csv
+Run script (Python 2.7.14): python loadsmart_takehome.py --trucks=./data/trucks.csv --cargo=./data/cargo.csv
 <br><br>
 LoadSmart Take Home Test
 <br><br>
